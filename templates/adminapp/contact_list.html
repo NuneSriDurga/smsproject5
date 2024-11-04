@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Contact List</h1>
+    <form method="get">
+        <input type="text" name="query" placeholder="Search by name or email" value="{{ query }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <div> 
+        {% for contact in contacts %}
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5>{{ contact.name }}</h5>
+                <p>Email: {{ contact.email }}<br>Phone: {{ contact.phone }}<br>Address: {{ contact.address }}</p>
+                <a href="{% url 'delete_contact' contact.pk %}" class="btn btn-danger">Delete</a>
+                <a href="mailto:{{ contact.email }}" class="btn btn-info">Email</a>
+            </div>
+        </div>
+        {% empty %}
+        <p>No contacts found.</p>
+        {% endfor %}
+    </div>
+    <a href="{% url 'add_contact' %}" class="btn btn-success mt-3">Add New Contact</a>
+</body>
+</html>
